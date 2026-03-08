@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Feliz Día de la Mujer 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Dancing+Script:wght@500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --teal:       #3ecfbe;
+    --teal-deep:  #1a9e94;
+    --teal-light: #a8ede8;
+    --aqua:       #b2f0eb;
+    --gold:       #d4a853;
+    --gold-light: #f5e4b0;
+    --cream:      #fffdf7;
+    --white:      #ffffff;
+    --text-dark:  #1c3a38;
+    --text-mid:   #2e5654;
+    --glass-bg:   rgba(255,255,255,0.22);
+    --glass-border: rgba(255,255,255,0.45);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(135deg, #0d9e94 0%, #1bbfb3 18%, #3ecfbe 35%, #7de8e0 52%, #a8ede8 68%, #c6f4ef 82%, #e0faf7 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ─── FLOATING PETALS BACKGROUND ─── */
+  .petal {
+    position: fixed;
+    top: -60px;
+    font-size: clamp(18px, 4vw, 32px);
+    animation: petalFall linear infinite;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+  }
+  @keyframes petalFall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0);   opacity: 0; }
+    5%   { opacity: .75; }
+    90%  { opacity: .4; }
+    100% { transform: translateY(110vh) rotate(720deg) translateX(60px); opacity: 0; }
+  }
+
+  /* ─── PAGE WRAPPER ─── */
+  .page { position: relative; z-index: 2; max-width: 520px; margin: 0 auto; padding: 40px 18px 60px; }
+
+  /* ─── HEADER ─── */
+  .header { text-align: center; padding: 30px 0 24px; animation: fadeUp .9s ease both; }
+  .header .eyebrow {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(17px, 4.5vw, 22px);
+    color: var(--gold);
+    letter-spacing: .06em;
+    margin-bottom: 10px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 8vw, 42px);
+    font-weight: 800;
+    line-height: 1.18;
+    color: var(--white);
+    text-shadow: 0 3px 18px rgba(0,80,76,.35);
+  }
+  .header h1 span {
+    display: block;
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .header .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px,3.5vw,17px);
+    font-style: italic;
+    color: rgba(255,255,255,.82);
+    margin-top: 10px;
+  }
+  .crown { font-size: 36px; display: block; margin-bottom: 6px; animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.13)} }
+
+  /* ─── GLASS CARD ─── */
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 24px;
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 8px 40px rgba(0,100,90,.18), 0 1.5px 0 rgba(255,255,255,.6) inset;
+    padding: 28px 24px;
+    margin-bottom: 22px;
+    animation: fadeUp .9s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ─── NOTE CARD ─── */
+  .note-trigger {
+    cursor: pointer;
+    text-align: center;
+    transition: transform .25s ease, box-shadow .25s ease;
+    user-select: none;
+    animation-delay: .2s;
+  }
+  .note-trigger:hover, .note-trigger:active { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,100,90,.28); }
+  .note-trigger .tap-icon { font-size: 48px; display: block; margin-bottom: 10px; animation: bounce 2s ease-in-out infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .note-trigger .tap-label {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(17px,4.5vw,21px);
+    font-weight: 700;
+    color: var(--white);
+  }
+  .note-trigger .tap-sub {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(14px,3.8vw,18px);
+    color: var(--gold-light);
+    margin-top: 4px;
+  }
+
+  /* ─── FLOWERS BURST ─── */
+  .burst-container {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+  }
+  .burst-petal {
+    position: absolute;
+    font-size: clamp(22px, 6vw, 38px);
+    animation: burstFly .9s cubic-bezier(.2,.8,.4,1) forwards;
+    opacity: 1;
+  }
+  @keyframes burstFly {
+    0%   { transform: translate(0,0) scale(0) rotate(0deg); opacity:1; }
+    60%  { opacity:1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(var(--tr)); opacity:0; }
+  }
+
+  /* ─── NOTE CONTENT ─── */
+  .note-content {
+    display: none;
+    animation: fadeUp .6s ease both;
+  }
+  .note-content.visible { display: block; }
+  .note-content .note-heading {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(22px,6vw,30px);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .note-content p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px,4vw,18px);
+    line-height: 1.82;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+  }
+  .note-content p em { color: var(--teal-deep); font-style: italic; }
+  .divider { text-align:center; font-size:22px; margin: 14px 0; letter-spacing:8px; }
+
+  /* ─── GARDEN SECTION ─── */
+  .garden-trigger {
+    cursor: pointer;
+    text-align: center;
+    animation-delay: .4s;
+    transition: transform .25s, box-shadow .25s;
+    user-select: none;
+  }
+  .garden-trigger:hover, .garden-trigger:active { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,100,90,.28); }
+  .garden-icon { font-size: 52px; display:block; margin-bottom:8px; animation: sway 3s ease-in-out infinite; }
+  @keyframes sway { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} }
+  .garden-label {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(17px,4.5vw,21px);
+    font-weight: 700;
+    color: var(--white);
+  }
+  .garden-sub {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(14px,3.8vw,17px);
+    color: var(--gold-light);
+    margin-top: 4px;
+  }
+
+  /* ─── BOUQUET GALLERY ─── */
+  .bouquet-gallery {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+    animation: fadeUp .5s ease both;
+  }
+  .bouquet-gallery.visible { display: grid; }
+  .bouquet-card {
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255,255,255,.35);
+    border: 1.5px solid rgba(255,255,255,.6);
+    box-shadow: 0 6px 24px rgba(0,80,76,.18);
+    transform: scale(0) rotate(-6deg);
+    opacity: 0;
+    transition: transform .5s cubic-bezier(.34,1.56,.64,1), opacity .4s ease, box-shadow .3s;
+  }
+  .bouquet-card.pop { transform: scale(1) rotate(0deg); opacity: 1; }
+  .bouquet-card:hover, .bouquet-card:active { transform: scale(1.05) rotate(1deg); box-shadow: 0 14px 40px rgba(0,80,76,.28); }
+  .bouquet-card img {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    display: block;
+  }
+  .bouquet-label {
+    padding: 8px 10px;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(13px,3.5vw,16px);
+    color: var(--text-dark);
+    text-align: center;
+    background: rgba(255,255,255,.55);
+  }
+
+  /* ─── TREATS SECTION ─── */
+  .treats-section {
+    text-align: center;
+    animation-delay: .6s;
+    padding: 22px 20px 20px;
+  }
+  .treats-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px,5.5vw,26px);
+  font-weight: 700;
+  font-style: italic;
+  color: #111;
+  margin-bottom: 6px;
+}
+  .treats-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(13px,3.5vw,16px);
+    color: rgba(255,255,255,.8);
+    margin-bottom: 18px;
+  }
+  .treats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    align-items: end;
+  }
+  .treat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: transform .2s;
+  }
+  .treat-item:hover, .treat-item:active { transform: scale(1.15) rotate(-3deg); }
+  .treat-item img {
+    width: 100%; border-radius: 14px;
+    aspect-ratio: 1; object-fit: cover;
+    border: 2px solid rgba(255,255,255,.55);
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    display: block;
+  }
+  .treat-emoji-card {
+    width: 100%; border-radius: 14px;
+    aspect-ratio: 1;
+    background: rgba(255,255,255,.3);
+    border: 2px solid rgba(255,255,255,.55);
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    display: flex; align-items:center; justify-content:center;
+    font-size: clamp(28px,8vw,42px);
+  }
+  .treat-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(11px,3vw,14px);
+    color: var(--white);
+    text-align: center;
+    text-shadow: 0 1px 6px rgba(0,60,56,.4);
+  }
+
+  /* ─── MINI COOPER ─── */
+  .mini-cooper-section {
+    animation-delay: .8s;
+    overflow: hidden;
+  }
+  .mini-cooper-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .cooper-img-wrap {
+    width: 100%; border-radius: 18px; overflow: hidden;
+    border: 2px solid rgba(255,255,255,.55);
+    box-shadow: 0 8px 32px rgba(0,80,76,.22);
+    animation: slideFromLeft .9s cubic-bezier(.34,1.2,.64,1) both;
+    animation-delay: 1s;
+  }
+  @keyframes slideFromLeft {
+    from { transform: translateX(-80px); opacity:0; }
+    to   { transform: translateX(0);     opacity:1; }
+  }
+  .cooper-img-wrap img { width:100%; display:block; object-fit:cover; border-radius:18px; }
+  .cooper-tag {
+    width:100%;
+    background: linear-gradient(135deg, rgba(255,255,255,.65), rgba(255,255,255,.35));
+    border: 1.5px solid rgba(255,255,255,.55);
+    border-radius: 16px;
+    padding: 16px 18px;
+    text-align: center;
+  }
+  .cooper-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(15px,4.2vw,19px);
+  font-style: italic;
+  color: #1a1a1a;
+  line-height: 1.55;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+  .cooper-tagline strong { 
+  color: #0a4f4b; 
+  font-style: normal; 
+}
+  .cooper-badge {
+    display: inline-block;
+    margin-top: 10px;
+    background: var(--gold);
+    color: var(--text-dark);
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(13px,3.5vw,16px);
+    padding: 5px 16px;
+    border-radius: 20px;
+    box-shadow: 0 3px 12px rgba(200,150,30,.35);
+  }
+
+ /* ─── FOOTER ─── */
+.footer-section {
+  text-align: center;
+  padding: 30px 10px 20px;
+  animation-delay: 1s;
+}
+.footer-main {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px,6.5vw,32px);
+  font-weight: 800;
+  font-style: italic;
+  color: #111;
+  text-shadow: 0 1px 4px rgba(0,0,0,.15);
+  margin-bottom: 6px;
+}
+.footer-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(16px,4.5vw,22px);
+  color: #333;
+  margin-bottom: 18px;
+}
+.floating-hearts { font-size: 22px; letter-spacing: 8px; animation: heartBeat 1.4s ease-in-out infinite; }
+@keyframes heartBeat { 0%,100%{transform:scale(1)} 14%{transform:scale(1.25)} 28%{transform:scale(1)} 42%{transform:scale(1.18)} }
+
+  /* ─── SECTION LABEL ─── */
+  .section-label {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(13px,3.5vw,16px);
+    color: rgba(255,255,255,.7);
+    text-align: center;
+    margin-bottom: 6px;
+    letter-spacing: .05em;
+  }
+
+  /* ─── CARD ANIM DELAYS ─── */
+  .glass-card:nth-child(1) { animation-delay: .1s; }
+  .glass-card:nth-child(2) { animation-delay: .3s; }
+  .glass-card:nth-child(3) { animation-delay: .5s; }
+  .glass-card:nth-child(4) { animation-delay: .7s; }
+  .glass-card:nth-child(5) { animation-delay: .9s; }
+</style>
+</head>
+<body>
+
+<!-- ─── PETALS ─── -->
+<div id="petalsContainer"></div>
+
+<!-- ─── BURST CONTAINER ─── -->
+<div class="burst-container" id="burstContainer"></div>
+
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <header class="header">
+    <span class="crown">👑</span>
+    <div class="eyebrow">8 de marzo · 2026</div>
+    <h1>Feliz Día de la Mujer,Jefa<span> (de Hogar)</span></h1>
+    <p class="subtitle">Para quien lleva el mundo con gracia y una sonrisa</p>
+  </header>
+
+  <!-- ══ NOTE CARD ══ -->
+  <div class="glass-card note-trigger" id="noteTrigger">
+    <span class="tap-icon">💌</span>
+    <div class="tap-label">Una nota para usted</div>
+    <div class="tap-sub">Toque aquí para abrirla ✨</div>
+  </div>
+
+  <!-- ══ NOTE CONTENT ══ -->
+  <div class="glass-card note-content" id="noteContent">
+    <div class="note-heading">✉️ Querida Jefa (de Hogar…)</div>
+    <p>
+      Sé que el Día de la Mujer no está exento de debate y tiene razón en serlo,
+      pues nació de la lucha y el sacrificio de muchas mujeres que merecen ser recordadas.
+      Pero precisamente por eso, no quería dejar pasar este día <em>sin saludarla a usted.</em>
+    </p>
+    <div class="divider">🌸 · 🌿 · 🌸</div>
+    <p>
+      Porque como algún día le dije, encuentro que es una mujer grandiosa y única. Es muy inteligente y luchadora, tiene un gran sentido del humor, 
+      es una agrandiosa madre y es muy hermosa. 
+       <em>una de esas personas que dejan huella.</em>
+    </p>
+    <p>
+      siento que a usted nadie la puede hacer sentir pequeña… aunque mida como 1.50, jajaja  —<em>quizás un poquito mas.</em> 😄
+    </p>
+    <div class="divider">🌼 · ✨ · 🌼</div>
+    <p>
+      Le habría mandado flores de verdad, pero resulta que no sé su dirección
+      (dato mas dificil que saber en que piso del edifico vive aca en calama xD).
+      Así que le dejo estas florcitas por aquí,
+      con todo el cariño del mundo. 🌷
+    </p>
+  </div>
+
+  <!-- ══ GARDEN SECTION ══ -->
+  <div class="section-label">Un pequeño detalle floral</div>
+  <div class="glass-card garden-trigger" id="gardenTrigger">
+    <span class="garden-icon">🌷</span>
+    <div class="garden-label">✦ Jardín para usted ✦</div>
+    <div class="garden-sub">Toque para ver su rincón de flores 🌿</div>
+  </div>
+
+  <!-- ══ BOUQUET GALLERY ══ -->
+<div class="bouquet-gallery" id="bouquetGallery">
+
+  <div class="bouquet-card" id="bc0">
+    <img src="https://v3b.fal.media/files/b/0a91467a/mR37h3W2IYhzIBGEroiGr_13b3d8c02bcf4527968b8c89da44eaa2.webp" alt="Rosas blancas y rosadas" loading="lazy"/>
+    <div class="bouquet-label">Rosas para ti 🤍</div>
+  </div>
+
+  <div class="bouquet-card" id="bc1">
+    <img src="https://v3b.fal.media/files/b/0a91467a/OUUXaOdiF7aY_xnJF6KoL_71c3b1dfeba94098ac3dbc954cc8019d.webp" alt="Arreglo primaveral" loading="lazy"/>
+    <div class="bouquet-label">Primavera 🌼</div>
+  </div>
+
+  <div class="bouquet-card" id="bc2">
+    <img src="https://i.etsystatic.com/19133241/r/il/e3f61d/3979429576/il_794xN.3979429576_syp5.jpg" alt="Ramo Hibisco" loading="lazy"/>
+    <div class="bouquet-label">Hibisco 🌺</div>
+  </div>
+
+  <div class="bouquet-card" id="bc3">
+    <img src="https://www.exoticasflores.cl/wp-content/uploads/2018/08/ramo-de-flores-1-1.jpg" alt="Ramo Tulipanes" loading="lazy"/>
+    <div class="bouquet-label">Tulipán 🌷</div>
+  </div>
+
+</div>
+
+ <!-- ══ TREATS ══ -->
+<div class="glass-card treats-section">
+  <div class="treats-heading">Sus antojos favoritos 🎀</div>
+  <div class="treats-sub">Porque la conozco bien…</div>
+
+  <div class="treats-grid">
+
+    <div class="treat-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqYc-x074KXcSRXH775lbl27Wn-sLJc-qX4g&s" alt="Rollo de canela" loading="lazy"/>
+      <span class="treat-name">Rollo de canela</span>
+    </div>
+
+    <div class="treat-item">
+      <img src="https://v3b.fal.media/files/b/0a91467b/uGkIRK4AWkspwdz4zuS3P_302b1ec15b094a919a2ccbf71d51981e.webp" alt="Café Starbucks" loading="lazy"/>
+      <span class="treat-name">Starbucks ☕</span>
+    </div>
+
+    <div class="treat-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-ceyYDswORVjwDjCiKUtFw9GpWZYlhAy2iw&s" alt="Papitas fritas" loading="lazy"/>
+      <span class="treat-name">Papitas 🍟</span>
+    </div>
+
+    <div class="treat-item">
+      <img src="https://static.wixstatic.com/media/cb0f05_316ac6f4380e45489d0b4c4a17e25d48~mv2.jpg/v1/fill/w_480,h_640,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/cb0f05_316ac6f4380e45489d0b4c4a17e25d48~mv2.jpg" alt="Torta Floken" loading="lazy"/>
+      <span class="treat-name">Torta Floken 🍰</span>
+    </div>
+
+  </div>
+</div>
+
+  <!-- ══ MINI COOPER ══ -->
+  <div class="section-label">Un detalle con cuatro ruedas 🚗</div>
+  <div class="glass-card mini-cooper-section">
+    <div class="mini-cooper-inner">
+      <div class="cooper-img-wrap">
+        <img src="https://v3b.fal.media/files/b/0a91467b/tAYryql5qZl5L8GREd5Ny_17367b175e32431193a75c4eb7bb40f0.webp" alt="Mini Cooper" loading="lazy"/>
+      </div>
+      <div class="cooper-tag">
+        <div class="cooper-tagline">
+          Elegante, compacta, llena de carácter y con más
+          <strong>potencia de la que parece.</strong><br/>
+          Un Mini Cooper es básicamente <em>usted con ruedas.</em>
+        </div>
+        <span class="cooper-badge">🏎️ Veloz, única e indetenible</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="glass-card footer-section">
+    <div class="footer-main">Feliz Día de la Mujer</div>
+    <div class="footer-script">Con admiro, cariño y respeto ✨</div>
+    <div class="floating-hearts">💚 🤍 💛</div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+/* ─── PETALS SETUP ─── */
+(function(){
+  const container = document.getElementById('petalsContainer');
+  const symbols = ['🌸','🌺','🌷','🌼','🍃','✨','🌿'];
+  for(let i=0;i<26;i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = symbols[i % symbols.length];
+    const left = Math.random()*100;
+    const dur  = 7 + Math.random()*9;
+    const del  = Math.random()*12;
+    p.style.cssText = `left:${left}%;animation-duration:${dur}s;animation-delay:${del}s;font-size:${16+Math.random()*18}px`;
+    container.appendChild(p);
+  }
+})();
+
+/* ─── BURST ANIMATION ─── */
+function fireBurst(cx, cy){
+  const cont = document.getElementById('burstContainer');
+  cont.innerHTML='';
+  const emojis=['🌸','🌺','🌷','🌼','🌻','🍀','✨','🌿','💐'];
+  for(let i=0;i<28;i++){
+    const el=document.createElement('div');
+    el.className='burst-petal';
+    el.textContent=emojis[i%emojis.length];
+    const angle=Math.random()*360;
+    const dist=80+Math.random()*220;
+    const tx=Math.cos(angle*Math.PI/180)*dist+'px';
+    const ty=Math.sin(angle*Math.PI/180)*dist+'px';
+    const tr=(Math.random()*720-360)+'deg';
+    el.style.cssText=`left:${cx}px;top:${cy}px;--tx:${tx};--ty:${ty};--tr:${tr};animation-duration:${.7+Math.random()*.5}s;animation-delay:${Math.random()*.15}s;font-size:${20+Math.random()*18}px`;
+    cont.appendChild(el);
+  }
+  setTimeout(()=>{ cont.innerHTML=''; }, 1400);
+}
+
+/* ─── NOTE TRIGGER ─── */
+document.getElementById('noteTrigger').addEventListener('click', function(e){
+  const rect = this.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top  + rect.height/2;
+  fireBurst(cx, cy);
+  setTimeout(()=>{
+    this.style.display='none';
+    const nc = document.getElementById('noteContent');
+    nc.classList.add('visible');
+    nc.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 950);
+});
+
+/* ─── GARDEN TRIGGER ─── */
+document.getElementById('gardenTrigger').addEventListener('click', function(e){
+  const rect = this.getBoundingClientRect();
+  fireBurst(rect.left + rect.width/2, rect.top + rect.height/2);
+  this.style.display='none';
+  const gallery = document.getElementById('bouquetGallery');
+  gallery.classList.add('visible');
+  ['bc0','bc1','bc2','bc3'].forEach((id,i)=>{
+    setTimeout(()=>{
+      document.getElementById(id).classList.add('pop');
+    }, 300 + i*120);
+  });
+  setTimeout(()=>{
+    gallery.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 200);
+});
+
+/* ─── TREAT BOUNCE ─── */
+document.querySelectorAll('.treat-item').forEach(item=>{
+  item.addEventListener('click',function(){
+    this.animate([
+      {transform:'scale(1)'},
+      {transform:'scale(1.35) rotate(-8deg)'},
+      {transform:'scale(.9)  rotate(4deg)'},
+      {transform:'scale(1.1)'},
+      {transform:'scale(1)'}
+    ],{duration:500,easing:'ease-in-out'});
+  });
+});
+
+/* ─── SCROLL REVEAL ─── */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.style.opacity='1';
+      entry.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.glass-card').forEach(card=>{
+  card.style.opacity='0';
+  card.style.transform='translateY(24px)';
+  card.style.transition='opacity .7s ease, transform .7s ease';
+  observer.observe(card);
+});
+</script>
+</body>
+</html>
